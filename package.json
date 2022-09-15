@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
+    "ethylene": "^1.2.18",
     "next": "12.3.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "truffle": "^5.5.30"
   },
   "devDependencies": {
     "eslint": "8.23.1",
