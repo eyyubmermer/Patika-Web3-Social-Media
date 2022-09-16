@@ -4,6 +4,7 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
+
 contract Instagram {
     using Counters for Counters.Counter;
 
@@ -14,13 +15,13 @@ contract Instagram {
     struct Post {
         string uri;
         Comment[] comments;
-        uint256 likes;
+        uint likes;
         address sender;
-        uint256 postedTime;
+        uint postedTime;
     }
 
     struct User {
-        uint256 ID;
+        uint ID;
         Post[] posts;
         address[] followings;
     }
@@ -42,16 +43,23 @@ contract Instagram {
         postCounter.increment();
     }
 
-    function viewAllPosts() public view returns (Post[] memory) {
+    function viewAllPosts() public view returns(Post[] memory) {
         return allPosts;
     }
 
-    function sendComment(uint256 _postId, string memory _uri) public {
+    function sendComment(uint _postId, string memory _uri) public {
         Post storage post = posts[_postId];
         Comment memory comment;
         comment.uri = _uri;
         post.comments.push(comment);
     }
+
+
+    function viewUserPosts(address _userAddress) public view returns(Post[] memory )   {
+        return users[_userAddress].posts;
+    }
+
+
 
     // function followUser(address _following) public {
     //     users[msg.sender].followings.push(_following);
@@ -72,4 +80,8 @@ contract Instagram {
     // function viewUserFollowings(address _user) public returns(uint[] memory)   {
     //     return users[_user].followings.;
     // }
+    
+
+
+
 }

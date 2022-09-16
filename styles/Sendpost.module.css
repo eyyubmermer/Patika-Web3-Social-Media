@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     background-color: darkmagenta;
-    height: 85vh;
+    background-size: auto;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
-    padding-bottom: 30vh;
 }
 
 .writeText {

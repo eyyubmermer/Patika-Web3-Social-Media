@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    background-size: contain;
+    padding-bottom: 50vh;
+}
+
+.allPost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

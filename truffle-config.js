@@ -1,5 +1,3 @@
-const HDWalletProvider = require('@truffle/hdwallet-provider');
-
 module.exports = {
 
 
@@ -17,7 +15,7 @@ module.exports = {
       version: "^0.8.0",
       settings: {
         optimizer: {
-          enabled: false,
+          enabled: true,
           runs: 200
         },
       }

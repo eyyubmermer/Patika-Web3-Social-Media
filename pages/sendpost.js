@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../styles/Sendpost.module.css'
 import axios from 'axios'
+import { ethers } from "ethers";
+import { instagramaddress } from '../config.js'
+import instagramjson from "../build/contracts/Instagram.json";
+import useContract from '../hooks/useContract';
 
 function sendpost() {
+    const contract = useContract(instagramaddress, instagramjson.abi)
 
-    const apikey = "e4978c9dab201bb87e53"
-    const apisecret = "102db1a194b3c059992453d91e89cba5634ec8aeb530d57986fb73961b0a82bb"
+    const apikey = "8aa0618764175cade222"
+    const apisecret = "ca93cec894ee38ee0c3168783915ff724390cbdabe2b16b96be6f2591541ea96"
 
     const [fileImg, setFileImg] = useState("")
     const [desc, setDesc] = useState("")
     const [final, setFinal] = useState("")
     const [finalObject, setFinalObject] = useState({ desc: "", image: "" })
+
 
     const sendFileToIPFS = async (e) => {
         e.preventDefault();
@@ -57,11 +63,13 @@ function sendpost() {
 
             console.log("final ", `https://gateway.pinata.cloud/ipfs/${resJSON.data.IpfsHash}`)
             setFinal(`https://gateway.pinata.cloud/ipfs/${resJSON.data.IpfsHash}`)
+            await contract.sendPost(`https://gateway.pinata.cloud/ipfs/${resJSON.data.IpfsHash}`);
 
         } catch (error) {
             console.log("JSON to IPFS: ")
             console.log(error);
         }
+        console.log(final)
     }
 
     const fetchIPFSdata = async (_final) => {
@@ -103,7 +111,7 @@ function sendpost() {
                 <div>
                     {finalObject.desc}
                     <br />
-                    {<img src={finalObject.image} />}
+                    {<img width={"350px"} src={finalObject.image} />}
                 </div>
             </form>
         </div>
