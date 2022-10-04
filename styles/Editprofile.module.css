@@ -13,8 +13,16 @@
 }
 
 .writeText {
-    height: 150px;
-    width: 750px;
+    height: 100px;
+    width: 450px;
+    font-size: 24px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+}
+
+.writeInput {
+    width: 450px;
     font-size: 24px;
     border-radius: 5px;
     border: none;

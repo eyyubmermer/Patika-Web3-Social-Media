@@ -1,18 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .container {
   display: flex;
   flex-direction: column;
-  background-color: bisque;
+  background-color: rgb(242, 237, 231);
   background-size: auto;
-
+  min-height: 100vh;
   padding-bottom: 50vh;
-}
-
-.navbar {
-  background-color: darkgoldenrod;
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #695CFE;
+  font-family: 'Poppins', sans-serif;
 }
 
 .links {

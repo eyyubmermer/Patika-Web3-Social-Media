@@ -1,67 +1,60 @@
 import styles from '../styles/Home.module.css'
 import React, { useEffect, useState } from 'react'
-import useContract from '../hooks/useContract';
 import instagramjson from "../build/contracts/Instagram.json";
 import { instagramaddress } from '../config.js'
-import { ethers } from 'ethers';
 import axios from 'axios';
 import Post from '../components/Post';
-
+import { useMoralisFile, useWeb3ExecuteFunction, useMoralis } from 'react-moralis';
 
 export default function Home() {
 
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [account, setAccount] = useState("");
 
-  const contract = useContract(instagramaddress, instagramjson.abi);
+  const contractProcessor = useWeb3ExecuteFunction();
+  const { account, isInitialized } = useMoralis();
 
 
-  function connect() {
-    if (!window.alert) {
-      alert("metamask is not installed!");
-      return;
+  const viewAllPosts = async () => {
+    let options = {
+      contractAddress: instagramaddress,
+      functionName: "viewAllPosts",
+      abi: instagramjson.abi,
+      params: {
+      },
     }
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    provider
-      .send("eth_requestAccounts", [])
-      .then((accounts) => setAccount(accounts[0]))
-      .catch((err) => console.log(err))
-  }
+    let data = await contractProcessor.fetch({
+      params: options,
+      onError: (error) => {
+        alert(error.message);
+      },
+    });
 
+    const items = await Promise.all(data.map(async i => {
 
-  const getAllPosts = async () => {
-    try {
-      setIsLoading(false);
-      const result = await contract?.viewAllPosts()
-      console.log(result);
+      let uri = i.uri;
 
-      const items = await Promise.all(result.map(async i => {
-        const postUri = i.uri;
-        // we want get the token metadata - json 
-        const meta = await axios.get(postUri)
-        let item = {
-          likes: i.likes,
-          postedTime: i.postedTime,
-          sender: i.sender,
-          description: meta.data.description,
-          image: meta.data.image,
-        }
-        return item
-      }))
-      setPosts(items)
-      setIsLoading(true);
-    } catch (error) {
-      console.log(error)
-    }
+      const data = await axios.get(uri);
+      let item = {
+        postId: i.ID,
+        sender: i.sender,
+        postedTime: i.postedTime,
+        likes: i.likes.toNumber(),
+        commentsLength: i.comments.length,
+        description: data.data.description,
+        image: data.data.image,
+      }
+      return item;
+    }))
+    setPosts(items)
+
+    console.log(data);
   }
 
 
   useEffect(() => {
-    connect();
     if (account) {
-      getAllPosts();
+      viewAllPosts();
     }
   }, [account])
 
@@ -70,16 +63,24 @@ export default function Home() {
     <div className={styles.container}>
       <div>
         <div className={styles.allPost} >
-          {posts.map((post, i) => (
-            <div key={i} >
-              <Post
-                sender={post.sender}
-                image={post.image}
-                description={post.description}
-                postedTime={post.postedTime}
-              />
-            </div>
-          ))}
+          <div>
+            {posts.length > 0 ? (
+              posts.map((post, i) => (
+                <div key={i} >
+                  <Post
+                    sender={post.sender}
+                    image={post.image}
+                    description={post.description}
+                    postedTime={post.postedTime}
+                    postId={post.postId}
+                    likes={post.likes}
+                    comments={post.commentsLength}
+                  />
+                </div>
+              ))
+            ) : <div></div>
+            }
+          </div>
         </div>
       </div>
     </div>

@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .container {
     display: flex;
     flex-direction: column;
-    background-color: bisque;
+    background-color: rgb(242, 237, 231);
     background-size: contain;
     padding-bottom: 50vh;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: #695CFE;
+    font-family: 'Poppins', sans-serif;
+
 }
 
 .allPost {
@@ -12,4 +22,39 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.details {
+    border: 1px solid black;
+    display: flex;
+    width: 450px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.profilePhoto {
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 15px;
+}
+
+
+.editProfileButton {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px;
+    padding-inline: 5px;
+    margin-left: 35px;
+}
+
+.nick {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.nonImage {
+    display: flex;
+    flex-direction: column;
 }

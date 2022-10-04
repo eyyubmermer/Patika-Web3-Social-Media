@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(242, 237, 231);
+    background-size: auto;
+    min-height: 100vh;
+    padding-bottom: 50vh;
+    justify-content: center;
+    align-items: center;
+    color: #695CFE;
+    font-family: 'Poppins', sans-serif;
+}
+
+.links {
+    padding: 150px;
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.post {
+    border: 1px black solid;
+    height: 450px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    position: absolute;
+}
+
+.writeText {
+    height: 75px;
+    width: 450px;
+    font-size: 24px;
+    margin: 15px;
+}
+
+.submitButton {
+    width: 450px;
+    color: brown;
+    margin-left: 15px;
+}
+
+.comment {
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.sender {
+    text-decoration: underline;
+}

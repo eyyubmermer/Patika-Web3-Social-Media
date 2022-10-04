@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import styles from '../styles/Sendpost.module.css'
+import styles from '../styles/Editprofile.module.css'
 import { instagramaddress } from '../config.js'
 import instagramjson from "../build/contracts/Instagram.json";
+import { useMoralisFile, useWeb3ExecuteFunction, useMoralis } from 'react-moralis';
 import Moralis from "moralis";
-import { useMoralisFile, useWeb3ExecuteFunction } from 'react-moralis';
 
-function sendpost() {
+function editprofile() {
 
-    const [description, setDescription] = useState("")
     const [fileImg, setFileImg] = useState("")
+    const [nick, setNick] = useState("")
+    const [description, setDescription] = useState("")
+    const [finalObject, setFinalObject] = useState({ nick: "", desc: "", image: "" })
 
     const { saveFile } = useMoralisFile();
     const contractProcessor = useWeb3ExecuteFunction();
@@ -28,6 +30,7 @@ function sendpost() {
     const sendJSONToIPFS = async (e) => {
         e.preventDefault();
         const metadata = {
+            nick: nick,
             description: description,
             image: fileImg
         };
@@ -40,7 +43,7 @@ function sendpost() {
                     saveIPFS: true,
                 }
             );
-            await sendPost(result.ipfs());
+            await editProfile(result.ipfs());
             console.log(result.ipfs())
 
         } catch (error) {
@@ -48,29 +51,37 @@ function sendpost() {
         }
     }
 
-    const sendPost = async (uri) => {
+
+    const editProfile = async (uri) => {
         let options = {
             contractAddress: instagramaddress,
-            functionName: "sendPost",
             abi: instagramjson.abi,
+            functionName: "editProfile",
             params: {
-                _uri: uri,
-            },
+                _uri: uri
+            }
         }
 
         await contractProcessor.fetch({
             params: options,
-            onError: (error) => {
-                alert(error.message);
-            },
-        });
+            onError: (error) => console.log(error)
+        })
+
+
     }
+
 
 
 
     return (
         <div className={styles.container} >
-            <form onSubmit={sendJSONToIPFS} >
+            <form onSubmit={sendJSONToIPFS}  >
+                <input className={styles.writeInput}
+                    placeholder="nick"
+                    value={nick}
+                    onChange={(e) => setNick(e.target.value)}
+                />
+                <br />
                 <textarea className={styles.writeText} placeholder='description' value={description} onChange={(e) => setDescription(e.target.value)} />
                 <br />
                 <input type="file" onChange={(e) => {
@@ -90,4 +101,4 @@ function sendpost() {
     )
 }
 
-export default sendpost
+export default editprofile

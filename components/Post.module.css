@@ -1,5 +1,5 @@
 .post {
-    border: 1px black solid;
+    border: 1px solid black;
     height: auto;
     width: 450px;
     display: flex;
@@ -16,6 +16,9 @@
     flex-direction: row;
     justify-content: space-evenly;
     padding-inline: 100px;
+    border-top: 1px solid black;
+    width: 450px;
+    border-radius: 5px;
 }
 
 .interactionElement {
@@ -25,4 +28,20 @@
 
 .address {
     margin: 10px;
+    text-decoration: underline;
+}
+
+.profileDetails {
+    width: 450px;
+    height: 75px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    font-size: large;
+}
+
+.profilePhoto {
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 15px;
 }

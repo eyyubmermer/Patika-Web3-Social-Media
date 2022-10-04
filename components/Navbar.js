@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from "./Navbar.module.css"
 import Link from 'next/link'
 import { ethers } from 'ethers';
+import { ConnectButton } from 'web3uikit';
 
 function Navbar() {
 
@@ -30,6 +31,9 @@ function Navbar() {
         <div className={styles.container} >
             < div className={styles.navbar} >
                 <div className={styles.links} >
+                    <img src='bnb.png' width={"50px"} />
+                </div>
+                <div className={styles.links} >
                     <Link href="/" > Home </Link>
                 </div>
                 <div className={styles.links} >
@@ -37,6 +41,9 @@ function Navbar() {
                 </div>
                 <div className={styles.links}>
                     <Link href="/sendpost" > Send Post </Link>
+                </div>
+                <div className={styles.links}>
+                    <ConnectButton />
                 </div>
             </div >
         </div>

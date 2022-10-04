@@ -1,1 +1,1 @@
-export const instagramaddress = "0x2BC0672ED33b720e86399BA0810B7363117320c8"
+export const instagramaddress = "0xdeA9262b801035E1240aE9f111e77c42FD32fc69"
